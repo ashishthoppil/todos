@@ -1,7 +1,13 @@
 import React from "react";
 import reactLogo from "../../assets/react.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { addToList } from "../../slices/todo.slice";
 
 export default function Header() {
+    const dispatch = useDispatch();
+    const todos = useSelector((state) => state);
+    console.log('todos', todos);
+
     return (
         <header class="bg-white w-full">
             <nav class="flex items-center border" aria-label="Global">
@@ -44,6 +50,21 @@ export default function Header() {
                     </div>
                 </div>
             </div>
+            
+
+            <div className='flex p-10 items-center justify-center w-full'>
+          <input
+            type='text' 
+            className='border-b-2 !focus:ring-0 !focus:ring-offset-0 w-[50%]' 
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                dispatch(addToList(event.target.value));
+              };
+            }}/>
+        </div>
+
+
+
         </header>
     );
 }
